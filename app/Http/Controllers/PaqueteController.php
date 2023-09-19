@@ -61,19 +61,19 @@ class PaqueteController extends Controller
         $loteYCamion = LoteAsignadoACamion::find($idLote);
         if($loteYCamion != null)
             return $loteYCamion -> id_camion;
-        $HTTP_NOT_FOUND = 404;
+        $HTTP_BAD_REQUEST = 400;
         abort(response() -> json([
             "message" => "El paquete no está asignado a ningun camión."
-        ], $HTTP_NOT_FOUND));
+        ], $HTTP_BAD_REQUEST));
     }
 
     private function obtenerIdPickupAsignada($idPaquete){
         $pickupYPaquete = PaqueteAsignadoAPickup::find($idPaquete);
         if($pickupYPaquete == null){
-            $HTTP_NOT_FOUND = 404;
+            $HTTP_BAD_REQUEST = 400;
             abort(response() -> json([
                 "message" => "El paquete no está asignado a ninguna pickup."
-            ], $HTTP_NOT_FOUND));
+            ], $HTTP_BAD_REQUEST));
         }
         return $pickupYPaquete -> id_pickup;
     }

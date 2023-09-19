@@ -15,9 +15,11 @@ class PaqueteTest extends TestCase
      */
     public function test_estadoPaqueteNoAsignado()
     {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
+        $response = $this->get('/api/v1/paquete/1');
+        $response -> assertStatus(400);
+        $response -> assertJson([
+            "message" => "El paquete no está asignado a ninguna pickup."
+        ]);
     }
 
     public function test_estadoPaqueteEnEspera()

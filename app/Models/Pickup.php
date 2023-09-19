@@ -11,4 +11,6 @@ class Pickup extends Model
     protected $fillable = [
         "id_vehiculo"
     ];
+    public $timestamps  = false;
+
 }

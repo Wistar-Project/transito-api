@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Alojamiento;
 use Illuminate\Database\Seeder;
+use App\Models\Paquete;
+use App\Models\Sede;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +16,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        Alojamiento::create([
+            "id" => 1,
+            "direccion" => "Algun destino"
+        ]);
+        Sede::create([
+            "id" => 1
+        ]);
+        Paquete::create([
+            "id" => 1,
+            "peso_en_kg" => 5,
+            "email" => "prueba@email.com",
+            "destino" => 1
+        ]);
     }
 }

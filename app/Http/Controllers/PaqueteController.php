@@ -8,32 +8,22 @@ use App\Models\LoteFormadoPor;
 use App\Models\Paquete;
 use App\Models\PaqueteAsignadoAPickup;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class PaqueteController extends Controller
 {
     public function ObtenerEstado(Request $request, $idPaquete){
         $destino = Paquete::findOrFail($idPaquete) -> destino;
+        $loteYPaquete = LoteFormadoPor::find($idPaquete);
+        if($loteYPaquete == null)
+            return $this -> estadoSinLote($idPaquete, $destino);
+        return $this -> estadoConLote($loteYPaquete, $idPaquete, $destino);
+    }
+
+    private function estadoConLote($loteYPaquete, $idPaquete, $destino){
         $estado = "No está en trayecto";
         $idConductor = "N/A";
-        $loteYPaquete = LoteFormadoPor::find($idPaquete);
-        if($loteYPaquete == null){
-            $idPickupAsignada = $this -> obtenerIdPickup($idPaquete);
-            $conductorManeja = ConductorManeja::where("id_vehiculo", $idPickupAsignada) -> first();
-            if($conductorManeja != null){
-                $estado = "En trayecto";
-                $idConductor = $conductorManeja -> id_conductor;
-            }
-            return [
-                "id_paquete" => $idPaquete,
-                "id_pickup_asignada" => $idPickupAsignada,
-                "id_conductor" => $idConductor,
-                "estado" => $estado,
-                "destino" => $destino
-            ];
-        }
         $idLote = $loteYPaquete -> id_lote;
-        $idCamionAsignado = $this -> obtenerIdCamion($idLote);
+        $idCamionAsignado = $this -> obtenerIdCamionAsignado($idLote);
         $conductorManeja = ConductorManeja::where("id_vehiculo", $idCamionAsignado) -> first();
         if($conductorManeja != null){
             $estado = "En trayecto";
@@ -49,7 +39,25 @@ class PaqueteController extends Controller
         ];
     }
 
-    private function obtenerIdCamion($idLote){
+    private function estadoSinLote($idPaquete, $destino){
+        $estado = "No está en trayecto";
+        $idConductor = "N/A";
+        $idPickupAsignada = $this -> obtenerIdPickupAsignada($idPaquete);
+        $conductorManeja = ConductorManeja::where("id_vehiculo", $idPickupAsignada) -> first();
+        if($conductorManeja != null){
+            $estado = "En trayecto";
+            $idConductor = $conductorManeja -> id_conductor;
+        }
+        return [
+            "id_paquete" => $idPaquete,
+            "id_pickup_asignada" => $idPickupAsignada,
+            "id_conductor" => $idConductor,
+            "estado" => $estado,
+            "destino" => $destino
+        ];
+    }
+
+    private function obtenerIdCamionAsignado($idLote){
         $loteYCamion = LoteAsignadoACamion::find($idLote);
         if($loteYCamion != null)
             return $loteYCamion -> id_camion;
@@ -59,7 +67,7 @@ class PaqueteController extends Controller
         ], $HTTP_NOT_FOUND));
     }
 
-    private function obtenerIdPickup($idPaquete){
+    private function obtenerIdPickupAsignada($idPaquete){
         $pickupYPaquete = PaqueteAsignadoAPickup::find($idPaquete);
         if($pickupYPaquete == null){
             $HTTP_NOT_FOUND = 404;

@@ -24,9 +24,15 @@ class PaqueteTest extends TestCase
 
     public function test_estadoPaqueteEnEspera()
     {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
+        $response = $this -> get('/api/v1/paquete/2');
+        $response -> assertStatus(200);
+        $response -> assertJson([
+            "id_paquete" => "2",
+            "id_pickup_asignada" => 1,
+            "id_conductor" => "N/A",
+            "estado" => "No está en trayecto",
+            "destino" => 1
+        ]);
     }
 
     public function test_estadoPaqueteEnTrayecto()

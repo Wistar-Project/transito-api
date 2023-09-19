@@ -10,5 +10,5 @@ class Alojamiento extends Model
     use HasFactory;
     protected $fillable = [
         "id"
-    ]
+    ];
 }

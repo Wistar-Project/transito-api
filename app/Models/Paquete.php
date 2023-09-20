@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\LoteFormadoPor;
 
 class Paquete extends Model
 {
@@ -15,4 +16,8 @@ class Paquete extends Model
         "email",
         "destino"
     ];
+
+    public function lote(){
+        return $this -> hasOne(LoteFormadoPor::class, "id_paquete");
+    }
 }

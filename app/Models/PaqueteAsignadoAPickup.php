@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ConductorManeja;
 
 class PaqueteAsignadoAPickup extends Model
 {
@@ -14,4 +15,8 @@ class PaqueteAsignadoAPickup extends Model
         "id_paquete",
         "id_pickup"
     ];
+
+    public function conductor(){
+        return $this -> hasOne(ConductorManeja::class, "id_vehiculo", "id_pickup");
+    }
 }

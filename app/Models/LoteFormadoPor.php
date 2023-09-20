@@ -10,4 +10,8 @@ class LoteFormadoPor extends Model
     use HasFactory;
     protected $table = "lote_formado_por";
     protected $primaryKey = "id_paquete";
+    protected $fillable = [
+        "id_paquete",
+        "id_lote"
+    ];
 }

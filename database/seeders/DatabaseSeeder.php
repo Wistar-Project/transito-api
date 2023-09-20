@@ -132,5 +132,24 @@ class DatabaseSeeder extends Seeder
             "id_conductor" => 2,
             "id_vehiculo" => 3
         ]);
+        Lote::create([
+            "id" => 2,
+            "destino" => 1
+        ]);
+        Lote::create([
+            "id" => 3,
+            "destino" => 1
+        ]);
+        Vehiculo::create([
+            "id" => 4,
+            "capacidad_en_toneladas" => 5
+        ]);
+        Camion::create([
+            "id_vehiculo" => 4
+        ]);
+        LoteAsignadoACamion::create([
+            "id_lote" => 3,
+            "id_camion" => 4
+        ]);
     }
 }

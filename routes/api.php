@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoteController;
 use App\Http\Controllers\PaqueteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('v1') -> group(function(){
     Route::get('/paquete/{d}', [ PaqueteController::class, "ObtenerEstado" ]);
+    Route::get('/lote/{d}', [ LoteController::class, "ObtenerEstado" ]);
 });

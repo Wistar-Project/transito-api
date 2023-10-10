@@ -5,13 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ConductorManeja extends Model
+class Conductor extends Model
 {
     use HasFactory;
-    protected $table = "conductor_maneja";
+    protected $table = "conductores";
     protected $fillable = [
-        "id_conductor",
-        "id_vehiculo"
+        "id"
     ];
-    public $timestamps = false;
 }

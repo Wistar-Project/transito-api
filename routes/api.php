@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('v1') -> group(function(){
-    Route::get('/paquete/{d}', [ PaqueteController::class, "ObtenerEstado" ]);
-    Route::get('/lote/{d}', [ LoteController::class, "ObtenerEstado" ]);
+Route::prefix('v1')->group(function () {
+    Route::get('/paquete/{d}', [PaqueteController::class, "ObtenerEstado"])->middleware("auth:api");
+    Route::get('/lote/{d}', [LoteController::class, "ObtenerEstado"])->middleware("auth:api");
 });

@@ -18,4 +18,8 @@ class LoteAsignadoACamion extends Model
     public function conductor(){
         return $this -> hasOne(ConductorManeja::class, "id_vehiculo", "id_camion");
     }
+
+    public function camion(){
+        return $this -> hasOne(Camion::class, "id_vehiculo", "id_camion");
+    }
 }

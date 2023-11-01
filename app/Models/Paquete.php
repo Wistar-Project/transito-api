@@ -20,4 +20,14 @@ class Paquete extends Model
     public function lote(){
         return $this -> hasOne(LoteFormadoPor::class, "id_paquete");
     }
+
+    public function pickup()
+    {
+        return $this->hasOne(PaqueteAsignadoAPickup::class, "id_paquete");
+    }
+
+    public function alojamiento()
+    {
+        return $this->hasOne(Alojamiento::class, "id", "destino");
+    }
 }

@@ -14,4 +14,9 @@ class ConductorManeja extends Model
         "id_vehiculo"
     ];
     public $timestamps = false;
+
+    public function persona()
+    {
+        return $this->hasOne(Persona::class, "id");
+    }
 }

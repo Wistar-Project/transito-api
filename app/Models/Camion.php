@@ -13,4 +13,9 @@ class Camion extends Model
         "id_vehiculo"
     ];
     public $timestamps = false;
+
+    public function conductor()
+    {
+        return $this->hasOne(ConductorManeja::class, "id_vehiculo");
+    }
 }

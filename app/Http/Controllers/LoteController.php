@@ -24,7 +24,7 @@ class LoteController extends Controller
             "estado" => $estado,
             "camionAsignado" => $camionAsignado -> id_camion,
             "conductor" => $conductor,
-            "destino" => $lote -> destino
+            "destino" => $lote -> alojamiento -> direccion
         ];
     }
 }

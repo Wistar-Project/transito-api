@@ -18,4 +18,9 @@ class Lote extends Model
     {
         return $this->hasOne(LoteAsignadoACamion::class, "id_lote");
     }
+
+    public function alojamiento()
+    {
+        return $this->hasOne(Alojamiento::class, "id", "destino");
+    }
 }

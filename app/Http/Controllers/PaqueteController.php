@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alojamiento;
 use App\Models\ConductorManeja;
 use App\Models\LoteAsignadoACamion;
 use App\Models\LoteFormadoPor;
@@ -13,37 +14,39 @@ class PaqueteController extends Controller
 {
     public function ObtenerEstado(Request $request, $idPaquete){
         $paquete = Paquete::findOrFail($idPaquete);
-        if($paquete -> lote == null)
+        if(!$paquete -> pickup && (!$paquete -> lote || !$paquete -> lote -> camion)){
+            $BAD_REQUEST_HTTP = 400;
+            return abort($BAD_REQUEST_HTTP, "El paquete no está asignado a un vehículo");
+        }
+        if($paquete -> pickup)
             return $this -> estadoSinLote($paquete);
         return $this -> estadoConLote($paquete);
     }
 
     private function estadoConLote($paquete){
-        $idConductor = null;
-        $camionAsignado = LoteAsignadoACamion::findOrFail($paquete -> lote -> id_lote);
-        $conductorManeja = $camionAsignado -> conductor;
-        if($conductorManeja != null)
-            $idConductor = $conductorManeja -> id_conductor;
+        $conductor = $paquete -> lote -> camion -> conductor -> id_conductor -> persona ?? "Ninguno";
+        if($conductor != "Ninguno")
+            $conductor = $conductor -> nombre . " " . $conductor -> apellido;
         return [
-            "id_paquete" => $paquete -> id,
-            "id_camion_asignado" => $camionAsignado -> id_camion,
-            "id_conductor" => $idConductor,
-            "destino" => $paquete -> destino,
-            "id_lote_asignado" => $paquete -> lote -> id_lote
+            "destino" => $paquete -> alojamiento -> direccion,
+            "paqueteId" => $paquete -> id,
+            "vehiculoAsignado" => "Camión " . $paquete -> lote -> camion -> id_camion,
+            "conductor" => $conductor,
+            "estado" => $conductor == "Ninguno" ? "En espera" : "En trayecto",
+            "loteAsignado" => $paquete -> lote -> id_lote
         ];
     }
 
     private function estadoSinLote($paquete){
-        $idConductor = null;
-        $pickupAsignada = PaqueteAsignadoAPickup::findOrFail($paquete -> id);
-        if($pickupAsignada -> conductor != null){
-            $idConductor = $pickupAsignada -> conductor -> id_conductor;
-        }
+        $conductor = $paquete -> pickup -> conductor -> id_conductor -> persona ?? "Ninguno";
+        if($conductor != "Ninguno")
+            $conductor = $conductor -> nombre . " " . $conductor -> apellido;
         return [
-            "id_paquete" => $paquete -> id,
-            "id_pickup_asignada" => $pickupAsignada -> id_pickup,
-            "id_conductor" => $idConductor,
-            "destino" => $paquete -> destino
+            "destino" => $paquete -> alojamiento -> direccion,
+            "paqueteId" => $paquete -> id,
+            "vehiculoAsignado" => "Pickup " . $paquete -> pickup -> id_pickup,
+            "conductor" => $conductor,
+            "estado" => $conductor == "Ninguno" ? "En espera" : "En trayecto"
         ];
     }
 }

@@ -14,4 +14,8 @@ class LoteFormadoPor extends Model
         "id_paquete",
         "id_lote"
     ];
+
+    public function camion(){
+        return $this -> hasOne(LoteAsignadoACamion::class, "id_lote", "id_lote");
+    }
 }

@@ -13,4 +13,8 @@ class Pickup extends Model
     ];
     public $timestamps  = false;
 
+    public function conductor()
+    {
+        return $this->hasOne(ConductorManeja::class, "id_vehiculo");
+    }
 }

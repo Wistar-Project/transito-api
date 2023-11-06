@@ -11,14 +11,19 @@ class LoteController extends Controller
 {
     public function ObtenerEstado(Request $request, $idLote){
         $lote = Lote::findOrFail($idLote);
-        $idConductor = null;
         $camionAsignado = LoteAsignadoACamion::findOrFail($lote -> id);
-        if($camionAsignado -> conductor != null)
-            $idConductor = $camionAsignado -> conductor -> id_conductor;
+        $conductor = "Ninguno";
+        $estado = "En espera";
+        if($camionAsignado -> conductor != null){
+            $estado = "En trayecto";
+            $conductor = $camionAsignado -> conductor -> id_conductor -> persona;
+            $conductor = $conductor -> nombre . " " . $conductor -> apellido;
+        }
         return [
-            "id_lote" => $lote -> id,
-            "id_camion_asignado" => $camionAsignado -> id_camion,
-            "id_conductor" => $idConductor,
+            "idLote" => $lote -> id,
+            "estado" => $estado,
+            "camionAsignado" => $camionAsignado -> id_camion,
+            "conductor" => $conductor,
             "destino" => $lote -> destino
         ];
     }

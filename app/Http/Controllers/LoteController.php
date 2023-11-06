@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ConductorManeja;
 use App\Models\Lote;
 use App\Models\LoteAsignadoACamion;
+use App\Models\LoteFormadoPor;
 use Illuminate\Http\Request;
 
 class LoteController extends Controller
@@ -24,7 +25,8 @@ class LoteController extends Controller
             "estado" => $estado,
             "camionAsignado" => $camionAsignado -> id_camion,
             "conductor" => $conductor,
-            "destino" => $lote -> alojamiento -> direccion
+            "destino" => $lote -> alojamiento -> direccion,
+            "lotes" => LoteFormadoPor::where("id_lote", $idLote) -> pluck("id_paquete")
         ];
     }
 }

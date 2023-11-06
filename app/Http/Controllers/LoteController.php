@@ -26,7 +26,7 @@ class LoteController extends Controller
             "camionAsignado" => $camionAsignado -> id_camion,
             "conductor" => $conductor,
             "destino" => $lote -> alojamiento -> direccion,
-            "lotes" => LoteFormadoPor::where("id_lote", $idLote) -> pluck("id_paquete")
+            "paquetes" => LoteFormadoPor::where("id_lote", $idLote) -> pluck("id_paquete")
         ];
     }
 }

@@ -24,6 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('v1')->group(function () {
     Route::get('/paquete/{d}', [PaqueteController::class, "ObtenerEstado"])->middleware("auth:api");
     Route::get('/lote/{d}', [LoteController::class, "ObtenerEstado"])->middleware("auth:api");
-    Route::get('/entregas', [EntregasController::class, "MostrarTodas"])->middleware("auth:api");
-    
+    Route::get('/entregas', [EntregasController::class, "Mostrar"])->middleware("auth:api");
 });

@@ -21,6 +21,6 @@ class PaqueteAsignadoAPickup extends Model
     }
 
     public function paquete(){
-        return $this -> hasOne(Lote::class, "id_lote", "id");
+        return $this -> hasOne(Paquete::class, "id", "id_paquete");
     }
 }

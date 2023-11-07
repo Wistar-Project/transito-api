@@ -24,6 +24,6 @@ class LoteAsignadoACamion extends Model
     }
 
     public function lote(){
-        return $this -> hasOne(Lote::class, "id_lote", "id");
+        return $this -> hasOne(Lote::class, "id", "id_lote");
     }
 }

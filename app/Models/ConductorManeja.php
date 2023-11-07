@@ -9,6 +9,7 @@ class ConductorManeja extends Model
 {
     use HasFactory;
     protected $table = "conductor_maneja";
+    protected $primaryKey = "id_conductor";
     protected $fillable = [
         "id_conductor",
         "id_vehiculo"

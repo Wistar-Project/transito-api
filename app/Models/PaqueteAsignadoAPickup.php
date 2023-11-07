@@ -19,4 +19,8 @@ class PaqueteAsignadoAPickup extends Model
     public function conductor(){
         return $this -> hasOne(ConductorManeja::class, "id_vehiculo", "id_pickup");
     }
+
+    public function paquete(){
+        return $this -> hasOne(Lote::class, "id_lote", "id");
+    }
 }

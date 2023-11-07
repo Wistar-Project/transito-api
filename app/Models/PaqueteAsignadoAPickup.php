@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ConductorManeja;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PaqueteAsignadoAPickup extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = "paquete_asignado_a_pickup";
     protected $primaryKey = "id_paquete";
     protected $fillable = [

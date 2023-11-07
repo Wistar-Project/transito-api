@@ -22,4 +22,8 @@ class LoteAsignadoACamion extends Model
     public function camion(){
         return $this -> hasOne(Camion::class, "id_vehiculo", "id_camion");
     }
+
+    public function lote(){
+        return $this -> hasOne(Lote::class, "id_lote", "id") -> withTrashed();
+    }
 }

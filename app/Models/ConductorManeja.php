@@ -19,4 +19,9 @@ class ConductorManeja extends Model
     {
         return $this->hasOne(Persona::class, "id");
     }
+
+    public function tipo()
+    {
+        return $this->hasOne(VehiculoTipo::class, "id_vehiculo");
+    }
 }

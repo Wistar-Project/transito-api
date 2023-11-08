@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ConductorManeja;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PaqueteAsignadoAPickup extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = "paquete_asignado_a_pickup";
     protected $primaryKey = "id_paquete";
     protected $fillable = [
@@ -18,5 +19,9 @@ class PaqueteAsignadoAPickup extends Model
 
     public function conductor(){
         return $this -> hasOne(ConductorManeja::class, "id_vehiculo", "id_pickup");
+    }
+
+    public function paquete(){
+        return $this -> hasOne(Paquete::class, "id", "id_paquete");
     }
 }

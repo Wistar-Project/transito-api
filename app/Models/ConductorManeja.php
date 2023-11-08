@@ -9,6 +9,7 @@ class ConductorManeja extends Model
 {
     use HasFactory;
     protected $table = "conductor_maneja";
+    protected $primaryKey = "id_conductor";
     protected $fillable = [
         "id_conductor",
         "id_vehiculo"
@@ -18,5 +19,10 @@ class ConductorManeja extends Model
     public function persona()
     {
         return $this->hasOne(Persona::class, "id");
+    }
+
+    public function tipo()
+    {
+        return $this->hasOne(VehiculoTipo::class, "id_vehiculo", "id_vehiculo");
     }
 }

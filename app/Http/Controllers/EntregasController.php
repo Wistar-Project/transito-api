@@ -108,4 +108,27 @@ class EntregasController extends Controller
             return $paquetesOLotesAsignados->get();
         return $paquetesOLotesAsignados->withTrashed()->get();
     }
+
+    public function MarcarEntregada(Request $request, $idDireccion){
+        $vehiculoAsignado = ConductorManeja::findOrFail($request->user()->id);
+        if($vehiculoAsignado->tipo->tipo == "camión")
+            return $this -> marcarLotesEntregados($vehiculoAsignado->id_vehiculo, $idDireccion);
+        $this -> marcarPaquetesEntregados($vehiculoAsignado->id_vehiculo, $idDireccion);
+    }
+
+    private function marcarLotesEntregados($idCamion, $idDireccion){
+        $lotesAsignados = LoteAsignadoACamion::where('id_camion', $idCamion)->get();
+        foreach ($lotesAsignados as $loteAsignado){
+            if($loteAsignado->lote->alojamiento->id == $idDireccion)
+                $loteAsignado->delete();   
+        }
+    }
+
+    private function marcarPaquetesEntregados($idPickup, $idDireccion){
+        $paquetesAsignados = PaqueteAsignadoAPickup::where('id_camion', $idPickup)->get();
+        foreach ($paquetesAsignados as $paqueteAsignado){
+            if($paqueteAsignado->paquete->alojamiento->id == $idDireccion)
+                $paqueteAsignado->delete();
+        }
+    }
 }

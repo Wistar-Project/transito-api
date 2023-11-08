@@ -26,5 +26,5 @@ Route::prefix('v1')->group(function () {
     Route::get('/lote/{d}', [LoteController::class, "ObtenerEstado"])->middleware("auth:api");
     Route::get('/entregas', [EntregasController::class, "Mostrar"])->middleware("auth:api");
     Route::get('/entregas/{d}', [EntregasController::class, "MostrarDescarga"])->middleware("auth:api");
-    Route::post('/entregas/{d}', [EntregasController::class, "MarcarEntregada"])->middleware("auth:api");
+    Route::delete('/entregas/{d}', [EntregasController::class, "MarcarEntregada"])->middleware("auth:api");
 });

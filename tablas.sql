@@ -161,54 +161,6 @@ CREATE TABLE traducciones(
     primary key (id, idioma)
 );
 
-/* TITULOS */
-INSERT INTO traducciones VALUES (1, "GoTruck - Iniciar sesión", "es");
-INSERT INTO traducciones VALUES (1, "GoTruck - Log in", "en");
-
-/* HEADER */
-INSERT INTO traducciones VALUES (100, "Cerrar sesión", "es");
-INSERT INTO traducciones VALUES (100, "Sign out", "en");
-
-/* FOOTER */
-INSERT INTO traducciones VALUES (200, "Política y privacidad", "es");
-INSERT INTO traducciones VALUES (200, "Policy and privacy", "en");
-INSERT INTO traducciones VALUES (201, "Contacto", "es");
-INSERT INTO traducciones VALUES (201, "Contact", "en");
-INSERT INTO traducciones VALUES (202, "Todos los derechos reservados", "es");
-INSERT INTO traducciones VALUES (202, "All rights reserved", "en");
-
-/* PÁGINA DE INICIO DE SESIÓN */
-INSERT INTO traducciones VALUES (300, "Iniciar sesión", "es");
-INSERT INTO traducciones VALUES (300, "Log in", "en");
-INSERT INTO traducciones VALUES (301, "Datos para iniciar sesión", "es");
-INSERT INTO traducciones VALUES (301, "Login information", "en");
-INSERT INTO traducciones VALUES (302, "Inicie sesión para acceder al sitio", "es");
-INSERT INTO traducciones VALUES (302, "Log in to access the site", "en");
-INSERT INTO traducciones VALUES (303, "Contraseña", "es");
-INSERT INTO traducciones VALUES (303, "Password", "en");
-INSERT INTO traducciones VALUES (304, "Ha ocurrido un error. Revise los campos por favor.", "es");
-INSERT INTO traducciones VALUES (304, "An error has ocurred. Please check your input.", "en");
-
-/* PÁGINA PRINCIPAL */
-INSERT INTO traducciones VALUES (400, "Aplicaciones", "es");
-INSERT INTO traducciones VALUES (400, "Applications", "en");
-INSERT INTO traducciones VALUES (401, "Seguimiento", "es");
-INSERT INTO traducciones VALUES (401, "Tracking", "en");
-INSERT INTO traducciones VALUES (402, "Ve el estado de una entrega buscándola por su id.", "es");
-INSERT INTO traducciones VALUES (402, "View the status of a delivery by searching its id.", "en");
-INSERT INTO traducciones VALUES (403, "Choferes", "es");
-INSERT INTO traducciones VALUES (403, "Drivers", "en");
-INSERT INTO traducciones VALUES (404, "Visualiza las entregas pendientes y el trayecto hacia la sede más cercana.", "es");
-INSERT INTO traducciones VALUES (404, "View pending deliveries and the route to the nearest location.", "en");
-INSERT INTO traducciones VALUES (405, "Almacén", "es");
-INSERT INTO traducciones VALUES (405, "Warehouse", "en");
-INSERT INTO traducciones VALUES (406, "Gestiona lotes con sus paquetes y asígnalos a un camión para ser entregados.", "es");
-INSERT INTO traducciones VALUES (406, "Manage batches with your packages and assign them to a truck for delivery.", "en");
-INSERT INTO traducciones VALUES (407, "Administración", "es");
-INSERT INTO traducciones VALUES (407, "Administration", "en");
-INSERT INTO traducciones VALUES (408, "Adéntrese en el mundo corporativo y gestione su equipo de trabajo.", "es");
-INSERT INTO traducciones VALUES (408, "Join the corporate world and manage your team.", "en");
-
 CREATE VIEW vehiculos_tipos AS
     SELECT id_vehiculo, "camión" tipo from camiones
     UNION

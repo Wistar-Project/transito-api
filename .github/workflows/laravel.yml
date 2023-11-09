@@ -39,7 +39,7 @@ jobs:
     - name: Run migrations
       run: php artisan migrate
     - name: Create MySQL tables
-      run: mysql -h localhost -u root -P 3306 -e "source tablas.sql" gotruck
+      run: mysql -h 127.0.0.1 -u root -e "source tablas.sql" gotruck
     - name: Run seeders
       run: php artisan db:seed
     - name: Run tests

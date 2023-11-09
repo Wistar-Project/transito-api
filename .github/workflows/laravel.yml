@@ -42,5 +42,7 @@ jobs:
       run: mysql -h 127.0.0.1 -u root -e "source tablas.sql" gotruck
     - name: Run seeders
       run: php artisan db:seed
+    - name: Create Unit folder for testing
+      run: mkdir tests/Unit
     - name: Run tests
       run: php artisan test

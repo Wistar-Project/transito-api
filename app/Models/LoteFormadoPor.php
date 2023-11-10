@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class LoteFormadoPor extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
     protected $table = "lote_formado_por";
     protected $primaryKey = "id_paquete";
     protected $fillable = [

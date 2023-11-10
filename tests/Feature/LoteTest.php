@@ -13,7 +13,17 @@ class LoteTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+    public function test_estado()
+    {
+        $this -> assertEquals(1, 1);
+    }
+
+    public function test_estadoInexistente()
+    {
+        $this -> assertEquals(1, 1);
+    }
+
+    public function test_estadoSinAutenticarse()
     {
         $this -> assertEquals(1, 1);
     }

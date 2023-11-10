@@ -17,7 +17,7 @@ class LoteController extends Controller
         $estado = "En espera";
         if($camionAsignado -> conductor != null){
             $estado = "En trayecto";
-            $conductor = $camionAsignado -> conductor -> id_conductor -> persona;
+            $conductor = $camionAsignado -> conductor -> persona;
             $conductor = $conductor -> nombre . " " . $conductor -> apellido;
         }
         return [

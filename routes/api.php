@@ -22,9 +22,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function () {
-    Route::get('/paquete/{d}', [PaqueteController::class, "ObtenerEstado"])->middleware("auth:api");
-    Route::get('/lote/{d}', [LoteController::class, "ObtenerEstado"])->middleware("auth:api");
-    Route::get('/entregas', [EntregasController::class, "Mostrar"])->middleware("auth:api");
-    Route::get('/entregas/{d}', [EntregasController::class, "MostrarDescarga"])->middleware("auth:api");
-    Route::delete('/entregas/{d}', [EntregasController::class, "MarcarEntregada"])->middleware("auth:api");
+    Route::middleware('auth:api')->group(function(){
+        Route::get('/paquete/{d}', [PaqueteController::class, "ObtenerEstado"]);
+        Route::get('/lote/{d}', [LoteController::class, "ObtenerEstado"]);
+        Route::get('/entregas', [EntregasController::class, "Mostrar"]);
+        Route::get('/entregas/{d}', [EntregasController::class, "MostrarDescarga"]);
+        Route::delete('/entregas/{d}', [EntregasController::class, "MarcarEntregada"]);
+    });
 });

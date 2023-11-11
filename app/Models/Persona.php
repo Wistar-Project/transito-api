@@ -9,6 +9,6 @@ class Persona extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "id"
+        "id", "nombre", "apellido"
     ];
 }

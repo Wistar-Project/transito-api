@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Gerente extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        "id"
+    ];
 }

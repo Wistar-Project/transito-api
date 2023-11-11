@@ -19,7 +19,7 @@ class EsChofer
     {
         $user = $request -> user();
         $rol = PersonaRol::findOrFail($user->id) -> rol;
-        if($rol == "conductor") return response([
+        if($rol != "conductor") return response([
             "message" => "No tienes permiso para ver esto."
         ], 401);
         return $next($request);

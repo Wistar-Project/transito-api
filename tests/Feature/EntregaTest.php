@@ -279,4 +279,55 @@ class EntregaTest extends TestCase
             "message" => "No tienes permiso para ver esto."
         ]);
     }
+
+    public function test_marcar_entregado()
+    {
+        $conductor = $this -> crearConductor();
+        Alojamiento::create(["id" => 42, "direccion" => "Dirección 42"]);
+        Sede::create(["id" => 42]);
+        Vehiculo::create(["id" => 42, "capacidad_en_toneladas" => 5]);
+        Camion::create(["id_vehiculo" => 42]);
+        ConductorManeja::create(["id_vehiculo" => 42, "id_conductor" => $conductor -> id]);
+        Lote::create(["id" => 42, "destino" => 42]);
+        Lote::create(["id" => 43, "destino" => 42]);
+        Lote::create(["id" => 44, "destino" => 42]);
+        LoteAsignadoACamion::create(["id_lote" => 42, "id_camion" => 42]);
+        LoteAsignadoACamion::create(["id_lote" => 43, "id_camion" => 42]);
+        LoteAsignadoACamion::create(["id_lote" => 44, "id_camion" => 42]);
+        Alojamiento::create(["id" => 43, "direccion" => "Dirección 43"]);
+        Sede::create(["id" => 43]);
+        Lote::create(["id" => 45, "destino" => 43]);
+        Lote::create(["id" => 46, "destino" => 43]);
+        LoteAsignadoACamion::create(["id_lote" => 45, "id_camion" => 42]);
+        LoteAsignadoACamion::create(["id_lote" => 46, "id_camion" => 42]);
+
+        $response = $this->actingAs($conductor)->get('/api/v1/entregas');
+        $response->assertStatus(200);
+        $response->assertExactJson([
+            [
+                "idDireccion" => 42,
+                "direccion" => "Dirección 42",
+                "entregada" => false
+            ], [
+                "idDireccion" => 43,
+                "direccion" => "Dirección 43",
+                "entregada" => false
+            ]
+        ]);
+        $response = $this->actingAs($conductor)->delete('/api/v1/entregas/43');
+        $response->assertStatus(200);
+        $response = $this->actingAs($conductor)->get('/api/v1/entregas');
+        $response->assertStatus(200);
+        $response->assertExactJson([
+            [
+                "idDireccion" => 42,
+                "direccion" => "Dirección 42",
+                "entregada" => false
+            ], [
+                "idDireccion" => 43,
+                "direccion" => "Dirección 43",
+                "entregada" => true
+            ]
+        ]);
+    }
 }

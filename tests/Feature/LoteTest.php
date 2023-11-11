@@ -119,11 +119,9 @@ class LoteTest extends TestCase
         ]);
     }
 
-    public function test_estadoSiendoChofer()
+    public function test_estadoSiendoConductor()
     {
-        $user = User::factory()->create();
-        Persona::create(["id" => $user->id, "nombre" => "a", "apellido" => "a"]);
-        Conductor::create(["id" => $user->id]);
+        $user = $this -> crearConductor();
         $response = $this -> actingAs($user) -> get('/api/v1/lote/1');
         $response -> assertStatus(401);
         $response -> assertExactJson([

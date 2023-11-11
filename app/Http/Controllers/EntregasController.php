@@ -34,7 +34,7 @@ class EntregasController extends Controller
 
     private function descargaDePaquetes($idPickup, $idSede)
     {
-        $paquetesAsignados = PaqueteAsignadoAPickup::where('id_pickup', $idPickup)->withTrashed->get();
+        $paquetesAsignados = PaqueteAsignadoAPickup::where('id_pickup', $idPickup)->withTrashed()->get();
         $paquetesConEseDestino = [];
         foreach ($paquetesAsignados as $paqueteAsignado) {
             if ($paqueteAsignado->paquete->alojamiento->id == $idSede)

@@ -24,7 +24,7 @@ class PaqueteController extends Controller
     }
 
     private function estadoConLote($paquete){
-        $conductor = $paquete -> lote -> camion -> conductor -> id_conductor -> persona ?? "Ninguno";
+        $conductor = $paquete -> lote -> camion -> conductor -> persona ?? "Ninguno";
         if($conductor != "Ninguno")
             $conductor = $conductor -> nombre . " " . $conductor -> apellido;
         return [
@@ -38,7 +38,7 @@ class PaqueteController extends Controller
     }
 
     private function estadoSinLote($paquete){
-        $conductor = $paquete -> pickup -> conductor -> id_conductor -> persona ?? "Ninguno";
+        $conductor = $paquete -> pickup -> conductor -> persona ?? "Ninguno";
         if($conductor != "Ninguno")
             $conductor = $conductor -> nombre . " " . $conductor -> apellido;
         return [

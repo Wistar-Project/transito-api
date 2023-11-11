@@ -25,8 +25,8 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:api')->group(function(){
         Route::get('/paquete/{d}', [PaqueteController::class, "ObtenerEstado"]) -> middleware('admin-o-gerente');
         Route::get('/lote/{d}', [LoteController::class, "ObtenerEstado"]) -> middleware('admin-o-gerente');
-        Route::get('/entregas', [EntregasController::class, "Mostrar"]) -> middleware('chofer-o-mayor');
-        Route::get('/entregas/{d}', [EntregasController::class, "MostrarDescarga"]) -> middleware('chofer-o-mayor');
-        Route::delete('/entregas/{d}', [EntregasController::class, "MarcarEntregada"]) -> middleware('chofer-o-mayor');
+        Route::get('/entregas', [EntregasController::class, "Mostrar"]) -> middleware('es-chofer');
+        Route::get('/entregas/{d}', [EntregasController::class, "MostrarDescarga"]) -> middleware('es-chofer');
+        Route::delete('/entregas/{d}', [EntregasController::class, "MarcarEntregada"]) -> middleware('es-chofer');
     });
 });

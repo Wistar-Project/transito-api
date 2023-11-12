@@ -330,4 +330,59 @@ class EntregaTest extends TestCase
             ]
         ]);
     }
+
+    public function test_marcar_todo_entregado()
+    {
+        $conductor = $this -> crearConductor();
+        Alojamiento::create(["id" => 50, "direccion" => "Dirección 50"]);
+        Sede::create(["id" => 50]);
+        Vehiculo::create(["id" => 50, "capacidad_en_toneladas" => 5]);
+        Camion::create(["id_vehiculo" => 50]);
+        ConductorManeja::create(["id_vehiculo" => 50, "id_conductor" => $conductor -> id]);
+        Lote::create(["id" => 50, "destino" => 50]);
+        Lote::create(["id" => 51, "destino" => 50]);
+        Lote::create(["id" => 52, "destino" => 50]);
+        LoteAsignadoACamion::create(["id_lote" => 50, "id_camion" => 50]);
+        LoteAsignadoACamion::create(["id_lote" => 51, "id_camion" => 50]);
+        LoteAsignadoACamion::create(["id_lote" => 52, "id_camion" => 50]);
+        Alojamiento::create(["id" => 51, "direccion" => "Dirección 51"]);
+        Sede::create(["id" => 51]);
+        Lote::create(["id" => 53, "destino" => 51]);
+        Lote::create(["id" => 54, "destino" => 51]);
+        LoteAsignadoACamion::create(["id_lote" => 53, "id_camion" => 50]);
+        LoteAsignadoACamion::create(["id_lote" => 54, "id_camion" => 50]);
+
+        $response = $this->actingAs($conductor)->get('/api/v1/entregas');
+        $response->assertStatus(200);
+        $response->assertExactJson([
+            [
+                "idDireccion" => 50,
+                "direccion" => "Dirección 50",
+                "entregada" => false
+            ], [
+                "idDireccion" => 51,
+                "direccion" => "Dirección 51",
+                "entregada" => false
+            ]
+        ]);
+        $response = $this->actingAs($conductor)->delete('/api/v1/entregas/50');
+        $response->assertStatus(200);
+        $response = $this->actingAs($conductor)->get('/api/v1/entregas');
+        $response->assertStatus(200);
+        $response->assertExactJson([
+            [
+                "idDireccion" => 50,
+                "direccion" => "Dirección 50",
+                "entregada" => true
+            ], [
+                "idDireccion" => 51,
+                "direccion" => "Dirección 51",
+                "entregada" => false
+            ]
+        ]);
+        $response = $this->actingAs($conductor)->delete('/api/v1/entregas/51');
+        $response->assertStatus(200);
+        $response = $this->actingAs($conductor)->get('/api/v1/entregas');
+        $response->assertStatus(404);
+    }
 }
